@@ -1,0 +1,122 @@
+.final-summary {
+  width: 100%;
+  max-width: 700px;
+}
+
+.summary-container {
+  background: white;
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.summary-title {
+  font-size: 3rem;
+  color: #e91e63;
+  margin-bottom: 30px;
+  animation: bounce 1s ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.final-score-display {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.final-score-display h2 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.final-score {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #ffd93d;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.celebration {
+  margin: 30px 0;
+}
+
+.celebration-icon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+}
+
+.celebration-message {
+  font-size: 1.3rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.restart-button {
+  padding: 15px 50px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin: 20px 0;
+}
+
+.restart-button:hover {
+  transform: scale(1.1);
+}
+
+.shopee-message {
+  margin-top: 30px;
+  padding: 20px;
+  background: #fff5e6;
+  border-radius: 10px;
+  border: 2px solid #ff6b35;
+}
+
+.shopee-message p {
+  font-size: 1.2rem;
+  color: #ff6b35;
+  margin: 5px 0;
+}
+
+.shopee-emoji {
+  font-size: 2rem;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}

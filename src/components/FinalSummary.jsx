@@ -1,0 +1,61 @@
+import './FinalSummary.css';
+
+function FinalSummary({ score, onRestart }) {
+  return (
+    <div className="final-summary">
+      <div className="summary-container">
+        <h1 className="summary-title">🎊 Game Over! 🎊</h1>
+        
+        <div className="final-score-display">
+          <h2>Your Shopee Budget</h2>
+          <div className="final-score">
+            Rp {score.toLocaleString()}
+          </div>
+        </div>
+
+        <div className="celebration">
+          {score >= 50000 ? (
+            <>
+              <div className="celebration-icon">🎉🎉🎉</div>
+              <p className="celebration-message">
+                Amazing! You're ready for a shopping spree! 🛍️
+              </p>
+            </>
+          ) : score >= 20000 ? (
+            <>
+              <div className="celebration-icon">🎈🎈</div>
+              <p className="celebration-message">
+                Great job! That's a nice budget! 💰
+              </p>
+            </>
+          ) : score > 0 ? (
+            <>
+              <div className="celebration-icon">✨</div>
+              <p className="celebration-message">
+                Not bad! Every rupiah counts! 💕
+              </p>
+            </>
+          ) : (
+            <>
+              <div className="celebration-icon">💔</div>
+              <p className="celebration-message">
+                Oh no! Better luck next time! 🎯
+              </p>
+            </>
+          )}
+        </div>
+
+        <button className="restart-button" onClick={onRestart}>
+          🔄 Play Again
+        </button>
+
+        <div className="shopee-message">
+          <p>Time to go shopping on Shopee! 🛒</p>
+          <p className="shopee-emoji">🧡</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default FinalSummary;
