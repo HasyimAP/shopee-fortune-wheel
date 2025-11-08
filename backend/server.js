@@ -9,18 +9,11 @@ app.use(express.json());
 
 // Default wheel configuration
 const DEFAULT_WHEEL_CONFIG = [
-  { value: 1000, weight: 10 },
-  { value: 2000, weight: 10 },
-  { value: 5000, weight: 10 },
-  { value: 10000, weight: 8 },
-  { value: 15000, weight: 7 },
-  { value: 20000, weight: 6 },
-  { value: 25000, weight: 5 },
-  { value: 30000, weight: 4 },
-  { value: 35000, weight: 3 },
-  { value: 40000, weight: 2 },
-  { value: 45000, weight: 1 },
-  { value: 50000, weight: 1 }
+  { value: 10000, weight: 10 },
+  { value: 20000, weight: 5 },
+  { value: 25000, weight: 4 },
+  { value: 50000, weight: 2 },
+  { value: 100000, weight: 1 },
 ];
 
 // Store the current wheel configuration (in-memory, resets on server restart)
