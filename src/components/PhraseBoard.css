@@ -21,6 +21,17 @@
   min-height: 80px;
 }
 
+.phrase-word {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.phrase-word-space {
+  width: 20px;
+  height: 60px;
+}
+
 .phrase-letter {
   width: 50px;
   height: 60px;

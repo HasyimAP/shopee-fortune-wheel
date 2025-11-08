@@ -2,21 +2,42 @@ import './PhraseBoard.css';
 
 function PhraseBoard({ secretPhrase, guessedLetters }) {
   const renderPhrase = () => {
-    return secretPhrase.split('').map((char, index) => {
-      const isLetter = /[A-Z]/.test(char);
-      const isRevealed = guessedLetters.has(char);
-      
-      if (!isLetter) {
+    // Split the phrase into words and non-letter segments
+    const words = secretPhrase.split(/(\s+)/);
+    
+    return words.map((word, wordIndex) => {
+      // Check if this segment is whitespace or special characters
+      if (/^\s+$/.test(word)) {
         return (
-          <div key={index} className="phrase-space">
-            {char === ' ' ? ' ' : char}
+          <div key={`word-${wordIndex}`} className="phrase-word-space">
+            {word}
           </div>
         );
       }
+      
+      // Render each word as a group of letters
+      const letters = word.split('').map((char, charIndex) => {
+        const isLetter = /[A-Z]/.test(char);
+        const isRevealed = guessedLetters.has(char);
+        
+        if (!isLetter) {
+          return (
+            <div key={`char-${charIndex}`} className="phrase-space">
+              {char}
+            </div>
+          );
+        }
 
+        return (
+          <div key={`char-${charIndex}`} className={`phrase-letter ${isRevealed ? 'revealed' : 'hidden'}`}>
+            {isRevealed ? char : ''}
+          </div>
+        );
+      });
+      
       return (
-        <div key={index} className={`phrase-letter ${isRevealed ? 'revealed' : 'hidden'}`}>
-          {isRevealed ? char : ''}
+        <div key={`word-${wordIndex}`} className="phrase-word">
+          {letters}
         </div>
       );
     });
