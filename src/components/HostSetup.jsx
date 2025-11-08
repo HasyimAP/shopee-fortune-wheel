@@ -6,6 +6,8 @@ function HostSetup({ onStart }) {
   const [useCustomWheel, setUseCustomWheel] = useState(false);
   const [wheelConfig, setWheelConfig] = useState([]);
   const [defaultConfig, setDefaultConfig] = useState([]);
+  const [vowelPrice, setVowelPrice] = useState(5000);
+  const [bonusPerLetter, setBonusPerLetter] = useState(5000);
 
   useEffect(() => {
     // Load default configuration
@@ -31,7 +33,7 @@ function HostSetup({ onStart }) {
             config: useCustomWheel ? wheelConfig : undefined
           })
         });
-        onStart(phrase.trim());
+        onStart(phrase.trim(), vowelPrice, bonusPerLetter);
       } catch (error) {
         console.error('Error setting wheel config:', error);
         alert('Error configuring the wheel. Please try again.');
@@ -151,6 +153,40 @@ function HostSetup({ onStart }) {
             )}
           </div>
 
+          <div className="game-config-section">
+            <h3>Game Settings:</h3>
+            <div className="config-input-group">
+              <label htmlFor="vowelPrice">Initial Vowel Price (Rp):</label>
+              <input
+                id="vowelPrice"
+                type="number"
+                value={vowelPrice}
+                onChange={(e) => setVowelPrice(parseInt(e.target.value) || 5000)}
+                min="1000"
+                step="1000"
+                className="config-input"
+              />
+              <p className="config-hint">
+                💡 1st vowel costs this amount, 2nd costs 2x, 3rd costs 3x, etc.
+              </p>
+            </div>
+            <div className="config-input-group">
+              <label htmlFor="bonusPerLetter">Bonus Points per Unguessed Letter (Rp):</label>
+              <input
+                id="bonusPerLetter"
+                type="number"
+                value={bonusPerLetter}
+                onChange={(e) => setBonusPerLetter(parseInt(e.target.value) || 5000)}
+                min="1000"
+                step="1000"
+                className="config-input"
+              />
+              <p className="config-hint">
+                💡 Bonus awarded for each letter not guessed when solving the phrase correctly.
+              </p>
+            </div>
+          </div>
+
           <button type="submit" className="start-button" disabled={!phrase.trim()}>
             Start Game 🎮
           </button>
@@ -162,8 +198,8 @@ function HostSetup({ onStart }) {
             <li>🎯 Spin the wheel to get a random value (based on configured weights)</li>
             <li>✅ Correct consonant guess: ADD the value to score</li>
             <li>❌ Wrong consonant guess: SUBTRACT the value from score</li>
-            <li>💰 Vowels cost 5k, 10k, 15k... (increasing by 5k each time)</li>
-            <li>🎊 Guess the full phrase correctly: +5k per remaining hidden consonant</li>
+            <li>💰 Vowels cost {(vowelPrice / 1000).toFixed(0)}k, {(vowelPrice * 2 / 1000).toFixed(0)}k, {(vowelPrice * 3 / 1000).toFixed(0)}k... (multiplier increases each time)</li>
+            <li>🎊 Guess the full phrase correctly: +{(bonusPerLetter / 1000).toFixed(0)}k per remaining hidden consonant</li>
             <li>💔 Wrong full phrase guess: LOSE HALF your score</li>
             <li>🛍️ Final score = Your Shopee budget!</li>
           </ul>

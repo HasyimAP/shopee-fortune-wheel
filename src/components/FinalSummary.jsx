@@ -1,6 +1,6 @@
 import './FinalSummary.css';
 
-function FinalSummary({ score, onRestart }) {
+function FinalSummary({ score, onRestart, bonusDetails }) {
   return (
     <div className="final-summary">
       <div className="summary-container">
@@ -12,6 +12,21 @@ function FinalSummary({ score, onRestart }) {
             Rp {score.toLocaleString()}
           </div>
         </div>
+
+        {bonusDetails && (
+          <div className="bonus-details">
+            <h3>🎁 Bonus Details</h3>
+            <div className="bonus-info">
+              <p><strong>Score before bonus:</strong> Rp {bonusDetails.scoreBeforeBonus.toLocaleString()}</p>
+              <p><strong>Unguessed letters count:</strong> {bonusDetails.hiddenConsonantsCount}</p>
+              {bonusDetails.hiddenConsonantsCount > 0 && (
+                <p><strong>Unguessed letters:</strong> {bonusDetails.hiddenConsonantsList.join(', ')}</p>
+              )}
+              <p><strong>Bonus per letter:</strong> Rp {bonusDetails.bonusPerLetter.toLocaleString()}</p>
+              <p className="total-bonus"><strong>Total bonus:</strong> Rp {bonusDetails.totalBonus.toLocaleString()}</p>
+            </div>
+          </div>
+        )}
 
         <div className="celebration">
           {score >= 50000 ? (

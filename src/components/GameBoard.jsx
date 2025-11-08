@@ -3,7 +3,7 @@ import './GameBoard.css';
 import Wheel from './Wheel';
 import PhraseBoard from './PhraseBoard';
 
-function GameBoard({ secretPhrase, onGameEnd }) {
+function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter = 5000 }) {
   const [score, setScore] = useState(0);
   const [guessedLetters, setGuessedLetters] = useState(new Set());
   const [currentSpinValue, setCurrentSpinValue] = useState(0);
@@ -16,7 +16,7 @@ function GameBoard({ secretPhrase, onGameEnd }) {
   const vowels = new Set(['A', 'E', 'I', 'O', 'U']);
   const consonants = new Set('BCDFGHJKLMNPQRSTVWXYZ'.split(''));
 
-  const getVowelCost = () => (vowelsPurchased + 1) * 5000;
+  const getVowelCost = () => (vowelsPurchased + 1) * vowelPrice;
 
   const showMessage = (msg, type) => {
     setMessage(msg);
@@ -113,16 +113,26 @@ function GameBoard({ secretPhrase, onGameEnd }) {
       const revealedConsonants = new Set(
         [...guessedLetters].filter(char => consonants.has(char))
       );
-      const hiddenConsonants = [...uniqueConsonants].filter(
+      const hiddenConsonantsList = [...uniqueConsonants].filter(
         c => !revealedConsonants.has(c)
-      ).length;
+      );
+      const hiddenConsonantsCount = hiddenConsonantsList.length;
       
-      const bonus = hiddenConsonants * 5000;
+      const bonus = hiddenConsonantsCount * bonusPerLetter;
       const finalScore = score + bonus;
       setScore(finalScore);
+      
+      const bonusInfo = {
+        hiddenConsonantsCount,
+        hiddenConsonantsList,
+        bonusPerLetter,
+        totalBonus: bonus,
+        scoreBeforeBonus: score
+      };
+      
       showMessage(`🎉 CORRECT! You won! Bonus: Rp ${bonus.toLocaleString()}`, 'success');
       
-      setTimeout(() => onGameEnd(finalScore), 2000);
+      setTimeout(() => onGameEnd(finalScore, bonusInfo), 2000);
     } else {
       const newScore = Math.floor(score / 2);
       setScore(newScore);
