@@ -62,9 +62,10 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
       setScore(newScore);
       showMessage(`Correct! "${letter}" is in the phrase. +Rp ${currentSpinValue.toLocaleString()}`, 'success');
     } else {
-      const newScore = Math.max(0, score - currentSpinValue);
+      const penalty = Math.floor(currentSpinValue / 2);
+      const newScore = Math.max(0, score - penalty);
       setScore(newScore);
-      showMessage(`Wrong! "${letter}" is not in the phrase. -Rp ${currentSpinValue.toLocaleString()}`, 'error');
+      showMessage(`Wrong! "${letter}" is not in the phrase. -Rp ${penalty.toLocaleString()}`, 'error');
     }
     
     setCurrentSpinValue(0);
