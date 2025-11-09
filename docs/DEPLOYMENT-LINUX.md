@@ -486,25 +486,25 @@ If you prefer not to use PM2, you can use systemd directly:
 ### Create Systemd Service File
 
 ```bash
-sudo nano /etc/systemd/system/wheel-backend.service
+sudo nano /etc/systemd/system/games-backend.service
 ```
 
 Add the following content:
 
 ```ini
 [Unit]
-Description=Wheel of Love Backend Server
+Description=Couple Fun Games Backend Server
 After=network.target
 
 [Service]
 Type=simple
-User=wheelapp
-WorkingDirectory=/home/wheelapp/shopee-fortune-wheel
+User=gamesapp
+WorkingDirectory=/home/gamesapp/couple-fun-games
 ExecStart=/usr/bin/node backend/server.js
 Restart=always
 RestartSec=10
-StandardOutput=append:/home/wheelapp/shopee-fortune-wheel/logs/backend-out.log
-StandardError=append:/home/wheelapp/shopee-fortune-wheel/logs/backend-error.log
+StandardOutput=append:/home/gamesapp/couple-fun-games/logs/backend-out.log
+StandardError=append:/home/gamesapp/couple-fun-games/logs/backend-error.log
 Environment=NODE_ENV=production
 Environment=PORT=3000
 
@@ -516,22 +516,22 @@ WantedBy=multi-user.target
 
 ```bash
 # Create logs directory
-sudo -u wheelapp mkdir -p /home/wheelapp/shopee-fortune-wheel/logs
+sudo -u gamesapp mkdir -p /home/gamesapp/couple-fun-games/logs
 
 # Reload systemd
 sudo systemctl daemon-reload
 
 # Enable service to start on boot
-sudo systemctl enable wheel-backend
+sudo systemctl enable games-backend
 
 # Start the service
-sudo systemctl start wheel-backend
+sudo systemctl start games-backend
 
 # Check status
-sudo systemctl status wheel-backend
+sudo systemctl status games-backend
 
 # View logs
-sudo journalctl -u wheel-backend -f
+sudo journalctl -u games-backend -f
 ```
 
 ## Troubleshooting
@@ -540,7 +540,7 @@ sudo journalctl -u wheel-backend -f
 
 ```bash
 # Check PM2 logs
-pm2 logs wheel-backend --err
+pm2 logs games-backend --err
 
 # Check if port 3000 is already in use
 sudo lsof -i:3000
@@ -564,10 +564,10 @@ sudo systemctl status nginx
 
 ```bash
 # Fix ownership of application files
-sudo chown -R wheelapp:wheelapp /home/wheelapp/shopee-fortune-wheel
+sudo chown -R gamesapp:gamesapp /home/gamesapp/couple-fun-games
 
 # Make sure Nginx can read the dist directory
-sudo chmod -R 755 /home/wheelapp/shopee-fortune-wheel/dist
+sudo chmod -R 755 /home/gamesapp/couple-fun-games/dist
 ```
 
 ### Port Conflicts
@@ -613,7 +613,7 @@ sudo kill -9 <PID>
 6. **Regular backups**:
    ```bash
    # Example backup script
-   tar -czf ~/backup-$(date +%Y%m%d).tar.gz ~/shopee-fortune-wheel
+   tar -czf ~/backup-$(date +%Y%m%d).tar.gz ~/couple-fun-games
    ```
 
 ## Performance Optimization
@@ -654,7 +654,7 @@ If you need to handle more traffic:
 module.exports = {
   apps: [
     {
-      name: 'wheel-backend',
+      name: 'games-backend',
       script: 'backend/server.js',
       instances: 4,  // Run 4 instances (or 'max' for CPU cores)
       exec_mode: 'cluster',  // Enable cluster mode
@@ -667,7 +667,7 @@ module.exports = {
 
 Then restart:
 ```bash
-pm2 restart wheel-backend
+pm2 restart games-backend
 ```
 
 ## Additional Resources
