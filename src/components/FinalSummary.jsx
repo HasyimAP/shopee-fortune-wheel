@@ -1,6 +1,6 @@
 import './FinalSummary.css';
 
-function FinalSummary({ score, onRestart, bonusDetails }) {
+function FinalSummary({ score, onRestart, bonusDetails, currency = 'IDR' }) {
   return (
     <div className="final-summary">
       <div className="summary-container">
@@ -9,7 +9,7 @@ function FinalSummary({ score, onRestart, bonusDetails }) {
         <div className="final-score-display">
           <h2>Your Shopee Budget</h2>
           <div className="final-score">
-            Rp {score.toLocaleString()}
+            {currency} {score.toLocaleString()}
           </div>
         </div>
 
@@ -17,13 +17,13 @@ function FinalSummary({ score, onRestart, bonusDetails }) {
           <div className="bonus-details">
             <h3>🎁 Bonus Details</h3>
             <div className="bonus-info">
-              <p><strong>Score before bonus:</strong> Rp {bonusDetails.scoreBeforeBonus.toLocaleString()}</p>
+              <p><strong>Score before bonus:</strong> {currency} {bonusDetails.scoreBeforeBonus.toLocaleString()}</p>
               <p><strong>Unguessed letters count:</strong> {bonusDetails.hiddenLettersCount}</p>
               {bonusDetails.hiddenLettersCount > 0 && (
                 <p><strong>Unguessed letters:</strong> {bonusDetails.hiddenLettersList.join(', ')}</p>
               )}
-              <p><strong>Bonus per letter:</strong> Rp {bonusDetails.bonusPerLetter.toLocaleString()}</p>
-              <p className="total-bonus"><strong>Total bonus:</strong> Rp {bonusDetails.totalBonus.toLocaleString()}</p>
+              <p><strong>Bonus per letter:</strong> {currency} {bonusDetails.bonusPerLetter.toLocaleString()}</p>
+              <p className="total-bonus"><strong>Total bonus:</strong> {currency} {bonusDetails.totalBonus.toLocaleString()}</p>
             </div>
           </div>
         )}

@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import './GameBoard.css';
 import Wheel from './Wheel';
 import PhraseBoard from './PhraseBoard';
+import HelpModal from './HelpModal';
 
-function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter = 5000 }) {
+function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter = 5000, currency = 'IDR' }) {
   const [score, setScore] = useState(0);
   const [guessedLetters, setGuessedLetters] = useState(new Set());
   const [currentSpinValue, setCurrentSpinValue] = useState(0);
@@ -12,6 +13,7 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
   const [messageType, setMessageType] = useState('info'); // success, error, info
   const [fullPhraseGuess, setFullPhraseGuess] = useState('');
   const [showFullPhraseInput, setShowFullPhraseInput] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   const vowels = new Set(['A', 'E', 'I', 'O', 'U']);
   const consonants = new Set('BCDFGHJKLMNPQRSTVWXYZ'.split(''));
@@ -31,7 +33,7 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
       });
       const data = await response.json();
       setCurrentSpinValue(data.value);
-      showMessage(`You spun: Rp ${data.value.toLocaleString()}! Now guess a consonant.`, 'info');
+      showMessage(`You spun: ${currency} ${data.value.toLocaleString()}! Now guess a consonant.`, 'info');
     } catch (error) {
       showMessage('Error spinning the wheel. Please try again.', 'error');
     }
@@ -60,12 +62,12 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
     if (isCorrect) {
       const newScore = score + currentSpinValue;
       setScore(newScore);
-      showMessage(`Correct! "${letter}" is in the phrase. +Rp ${currentSpinValue.toLocaleString()}`, 'success');
+      showMessage(`Correct! "${letter}" is in the phrase. +${currency} ${currentSpinValue.toLocaleString()}`, 'success');
     } else {
       const penalty = Math.floor(currentSpinValue / 2);
       const newScore = Math.max(0, score - penalty);
       setScore(newScore);
-      showMessage(`Wrong! "${letter}" is not in the phrase. -Rp ${penalty.toLocaleString()}`, 'error');
+      showMessage(`Wrong! "${letter}" is not in the phrase. -${currency} ${penalty.toLocaleString()}`, 'error');
     }
     
     setCurrentSpinValue(0);
@@ -85,7 +87,7 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
     const cost = getVowelCost();
     
     if (score < cost) {
-      showMessage(`Not enough money! You need Rp ${cost.toLocaleString()}`, 'error');
+      showMessage(`Not enough money! You need ${currency} ${cost.toLocaleString()}`, 'error');
       return;
     }
 
@@ -96,9 +98,9 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
 
     const isInPhrase = secretPhrase.includes(letter);
     if (isInPhrase) {
-      showMessage(`You purchased "${letter}" for Rp ${cost.toLocaleString()}. It's in the phrase!`, 'success');
+      showMessage(`You purchased "${letter}" for ${currency} ${cost.toLocaleString()}. It's in the phrase!`, 'success');
     } else {
-      showMessage(`You purchased "${letter}" for Rp ${cost.toLocaleString()}. It's not in the phrase.`, 'info');
+      showMessage(`You purchased "${letter}" for ${currency} ${cost.toLocaleString()}. It's not in the phrase.`, 'info');
     }
   };
 
@@ -128,7 +130,7 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
         scoreBeforeBonus: score
       };
       
-      showMessage(`🎉 CORRECT! You won! Bonus: Rp ${bonus.toLocaleString()}`, 'success');
+      showMessage(`🎉 CORRECT! You won! Bonus: ${currency} ${bonus.toLocaleString()}`, 'success');
       
       setTimeout(() => onGameEnd(finalScore, bonusInfo), 2000);
     } else {
@@ -142,17 +144,21 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
 
   return (
     <div className="game-board">
+      <button className="help-button" onClick={() => setShowHelp(true)} title="How to Play">
+        ❓ Help
+      </button>
+      
       <div className="game-container">
-        <h1 className="game-title">🎡 Wheel of Love 💕</h1>
+        <h1 className="game-title">🎡 Shopee Fortune Wheel 💕</h1>
         
         <div className={`message-banner ${messageType}`}>
           {message}
         </div>
 
         <div className="score-display">
-          <h2>Current Score: Rp {score.toLocaleString()}</h2>
+          <h2>Current Score: {currency} {score.toLocaleString()}</h2>
           <p>Vowels Purchased: {vowelsPurchased}</p>
-          <p>Next Vowel Cost: Rp {getVowelCost().toLocaleString()}</p>
+          <p>Next Vowel Cost: {currency} {getVowelCost().toLocaleString()}</p>
         </div>
 
         <Wheel onSpin={handleSpin} currentValue={currentSpinValue} />
@@ -180,7 +186,7 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
           </div>
 
           <div className="vowel-purchase">
-            <h3>Buy a Vowel (Rp {getVowelCost().toLocaleString()})</h3>
+            <h3>Buy a Vowel ({currency} {getVowelCost().toLocaleString()})</h3>
             <div className="vowel-grid">
               {[...'AEIOU'].map(letter => (
                 <button
@@ -232,6 +238,8 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
           </div>
         </div>
       </div>
+      
+      {showHelp && <HelpModal onClose={() => setShowHelp(false)} currency={currency} />}
     </div>
   );
 }

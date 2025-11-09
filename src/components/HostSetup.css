@@ -281,3 +281,18 @@
   border-color: #667eea;
 }
 
+.currency-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.currency-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+

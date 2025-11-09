@@ -1,0 +1,40 @@
+.shopee-fortune-wheel {
+  position: relative;
+}
+
+.back-to-home {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.back-to-home:hover {
+  background: #667eea;
+  color: white;
+  transform: translateX(-5px);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+.back-to-home:active {
+  transform: translateX(-3px) scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .back-to-home {
+    top: 10px;
+    left: 10px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}

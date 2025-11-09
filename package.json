@@ -1,7 +1,7 @@
 {
-  "name": "wheel-of-love",
+  "name": "couple-fun-games",
   "version": "1.0.0",
-  "description": "A Wheel of Fortune-inspired game for a couple's Shopee challenge",
+  "description": "A collection of fun, interactive games designed for couples to enjoy together",
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
