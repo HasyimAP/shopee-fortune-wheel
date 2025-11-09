@@ -27,6 +27,7 @@ All setup guides include:
 ### Deployment
 
 - **🚀 [Linux Server Deployment Guide](DEPLOYMENT-LINUX.md)** - Complete production deployment with Nginx, PM2, SSL, and monitoring
+- **🔄 [Update Deployment Guide](UPDATE-DEPLOYMENT.md)** - Instructions for updating deployed applications, handling conflicts, and rollback procedures
 
 ### Individual Game Documentation
 
@@ -71,6 +72,7 @@ couple-fun-games/
 │   ├── SETUP-LINUX.md         # Linux setup guide
 │   ├── SETUP-MACOS.md         # macOS setup guide
 │   ├── DEPLOYMENT-LINUX.md    # Linux deployment guide
+│   ├── UPDATE-DEPLOYMENT.md   # Update deployment guide
 │   └── games/
 │       └── shopee-fortune-wheel.md  # Individual game docs
 ├── index.html                 # HTML template

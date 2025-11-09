@@ -37,6 +37,7 @@ Choose your operating system for detailed setup instructions from scratch:
 For deploying to a production Linux server:
 
 - 🚀 **[Linux Server Deployment Guide](docs/DEPLOYMENT-LINUX.md)** - Complete production deployment with Nginx, PM2, SSL, and monitoring
+- 🔄 **[Update Deployment Guide](docs/UPDATE-DEPLOYMENT.md)** - Instructions for updating deployed applications, handling conflicts, and rollback procedures
 
 ### Quick Start (If you already have Node.js)
 

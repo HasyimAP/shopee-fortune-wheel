@@ -71,7 +71,7 @@ function HostSetup({ onStart }) {
           <label htmlFor="phrase">Enter the Secret Phrase:</label>
           <input
             id="phrase"
-            type="text"
+            type="password"
             value={phrase}
             onChange={(e) => setPhrase(e.target.value)}
             placeholder="e.g., I LOVE YOU SO MUCH"
@@ -210,16 +210,33 @@ function HostSetup({ onStart }) {
         </form>
 
         <div className="rules">
-          <h3>Game Rules:</h3>
+          <h3>📖 How to Play:</h3>
           <ul>
-            <li>🎯 Spin the wheel to get a random value (based on configured weights)</li>
-            <li>✅ Correct consonant guess: ADD the value to score</li>
-            <li>❌ Wrong consonant guess: SUBTRACT the value from score</li>
-            <li>💰 Vowels cost {(vowelPrice / 1000).toFixed(0)}k, {(vowelPrice * 2 / 1000).toFixed(0)}k, {(vowelPrice * 3 / 1000).toFixed(0)}k... (multiplier increases each time)</li>
-            <li>🎊 Guess the full phrase correctly: +{(bonusPerLetter / 1000).toFixed(0)}k per remaining hidden consonant</li>
-            <li>💔 Wrong full phrase guess: LOSE HALF your score</li>
-            <li>🛍️ Final score = Your Shopee budget!</li>
+            <li>🎡 <strong>Spin the Wheel:</strong> Click "Spin" to get a random value that determines your potential points</li>
+            <li>🔤 <strong>Guess Consonants:</strong> After spinning, select a consonant letter
+              <ul style={{ marginTop: '5px', marginLeft: '20px' }}>
+                <li>✅ If correct: ADD the spun value to your score</li>
+                <li>❌ If wrong: LOSE HALF of the spun value from your score</li>
+              </ul>
+            </li>
+            <li>💰 <strong>Buy Vowels:</strong> Purchase vowels (A, E, I, O, U) using your points
+              <ul style={{ marginTop: '5px', marginLeft: '20px' }}>
+                <li>1st vowel: {(vowelPrice / 1000).toFixed(0)}k {currency}</li>
+                <li>2nd vowel: {(vowelPrice * 2 / 1000).toFixed(0)}k {currency}</li>
+                <li>3rd vowel: {(vowelPrice * 3 / 1000).toFixed(0)}k {currency}, and so on...</li>
+              </ul>
+            </li>
+            <li>🎯 <strong>Solve the Phrase:</strong> When you know the answer, click "Guess Full Phrase"
+              <ul style={{ marginTop: '5px', marginLeft: '20px' }}>
+                <li>✅ If correct: Earn +{(bonusPerLetter / 1000).toFixed(0)}k {currency} bonus for each unguessed consonant!</li>
+                <li>❌ If wrong: LOSE HALF of your current score</li>
+              </ul>
+            </li>
+            <li>🛍️ <strong>Your Final Score = Your Shopee Shopping Budget!</strong></li>
           </ul>
+          <p style={{ marginTop: '15px', fontStyle: 'italic', fontSize: '0.9em' }}>
+            💡 <strong>Pro Tip:</strong> Balance between revealing letters and solving early to maximize your bonus points. Good luck! 🍀
+          </p>
         </div>
       </div>
     </div>
