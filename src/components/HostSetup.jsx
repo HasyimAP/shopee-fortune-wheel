@@ -8,6 +8,7 @@ function HostSetup({ onStart }) {
   const [defaultConfig, setDefaultConfig] = useState([]);
   const [vowelPrice, setVowelPrice] = useState(5000);
   const [bonusPerLetter, setBonusPerLetter] = useState(5000);
+  const [currency, setCurrency] = useState('IDR');
 
   useEffect(() => {
     // Load default configuration
@@ -33,7 +34,7 @@ function HostSetup({ onStart }) {
             config: useCustomWheel ? wheelConfig : undefined
           })
         });
-        onStart(phrase.trim(), vowelPrice, bonusPerLetter);
+        onStart(phrase.trim(), vowelPrice, bonusPerLetter, currency);
       } catch (error) {
         console.error('Error setting wheel config:', error);
         alert('Error configuring the wheel. Please try again.');
@@ -63,8 +64,8 @@ function HostSetup({ onStart }) {
   return (
     <div className="host-setup">
       <div className="host-setup-container">
-        <h1 className="title">🎡 Wheel of Love 💕</h1>
-        <p className="subtitle">Shopee Challenge Edition</p>
+        <h1 className="title">🎡 Shopee Fortune Wheel 💕</h1>
+        <p className="subtitle">Spin, Guess, and Win!</p>
         
         <form onSubmit={handleSubmit} className="setup-form">
           <label htmlFor="phrase">Enter the Secret Phrase:</label>
@@ -77,6 +78,22 @@ function HostSetup({ onStart }) {
             className="phrase-input"
             autoFocus
           />
+
+          <div className="config-input-group">
+            <label htmlFor="currency">Currency Code:</label>
+            <input
+              id="currency"
+              type="text"
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value.toUpperCase())}
+              placeholder="e.g., IDR, USD, EUR"
+              className="currency-input"
+              maxLength="10"
+            />
+            <p className="config-hint">
+              💡 Set the currency code for displaying values (e.g., IDR, USD, EUR)
+            </p>
+          </div>
 
           <div className="wheel-config-section">
             <h3>Wheel Configuration:</h3>
@@ -108,7 +125,7 @@ function HostSetup({ onStart }) {
                 </p>
                 <div className="config-table">
                   <div className="config-header">
-                    <span>Value (Rp)</span>
+                    <span>Value ({currency})</span>
                     <span>Weight (Rarity)</span>
                     <span>Action</span>
                   </div>
@@ -156,7 +173,7 @@ function HostSetup({ onStart }) {
           <div className="game-config-section">
             <h3>Game Settings:</h3>
             <div className="config-input-group">
-              <label htmlFor="vowelPrice">Initial Vowel Price (Rp):</label>
+              <label htmlFor="vowelPrice">Initial Vowel Price ({currency}):</label>
               <input
                 id="vowelPrice"
                 type="number"
@@ -171,7 +188,7 @@ function HostSetup({ onStart }) {
               </p>
             </div>
             <div className="config-input-group">
-              <label htmlFor="bonusPerLetter">Bonus Points per Unguessed Letter (Rp):</label>
+              <label htmlFor="bonusPerLetter">Bonus Points per Unguessed Letter ({currency}):</label>
               <input
                 id="bonusPerLetter"
                 type="number"
