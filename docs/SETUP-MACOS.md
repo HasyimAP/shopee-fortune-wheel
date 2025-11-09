@@ -1,6 +1,6 @@
-# 🍎 macOS Setup Guide - Wheel of Love
+# 🍎 macOS Setup Guide - Couple Fun Games
 
-This guide will walk you through setting up and running the Wheel of Love game on macOS from scratch.
+This guide will walk you through setting up and running Couple Fun Games on macOS from scratch.
 
 ## Prerequisites Check
 
@@ -118,12 +118,12 @@ git --version
 
 3. **Clone the repository:**
    ```bash
-   git clone https://github.com/HasyimAP/shopee-fortune-wheel.git
+   git clone https://github.com/HasyimAP/couple-fun-games.git
    ```
 
 4. **Navigate into the project:**
    ```bash
-   cd shopee-fortune-wheel
+   cd couple-fun-games
    ```
 
 ## Step 4: Install Project Dependencies
@@ -167,12 +167,14 @@ npm run client
 
 **Tip:** Use `Cmd+T` to open new tabs in Terminal, or `Cmd+N` for new windows.
 
-## Step 6: Play the Game!
+## Step 6: Play the Games!
 
-1. Enter a secret phrase in the setup screen
-2. Configure the wheel settings (use default or customize)
-3. Click "Start Game"
-4. Have fun spinning and guessing!
+1. The homepage will display all available games
+2. Select a game from the list
+3. Follow the game-specific instructions
+4. Have fun playing!
+
+For detailed game rules and features, see the [individual game documentation](README.md#individual-game-documentation).
 
 ## Troubleshooting
 
@@ -340,9 +342,10 @@ Useful Terminal shortcuts:
 
 ## Next Steps
 
-- Read the [main README](../README.md) for game rules and features
-- Explore customization options
-- Have fun playing! 🎡💕
+- Read the [main README](../README.md) for platform overview and quick start
+- Read the [documentation index](README.md) for all documentation
+- Explore individual game documentation
+- Have fun playing! 🎮💕
 
 ## Getting Help
 
@@ -356,4 +359,4 @@ If you encounter any issues not covered here:
 
 ---
 
-**Happy Gaming on macOS! 🍎🎡**
+**Happy Gaming on macOS! 🍎🎮**

@@ -1,6 +1,6 @@
-# 🚀 Linux Server Deployment Guide - Wheel of Love
+# 🚀 Linux Server Deployment Guide - Couple Fun Games
 
-This comprehensive guide will walk you through deploying the Wheel of Love game on a production Linux server.
+This comprehensive guide will walk you through deploying Couple Fun Games on a production Linux server.
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
@@ -67,10 +67,10 @@ For security, create a dedicated user for the application:
 
 ```bash
 # Create a new user
-sudo adduser --disabled-password --gecos "" wheelapp
+sudo adduser --disabled-password --gecos "" gamesapp
 
 # Switch to the new user
-sudo su - wheelapp
+sudo su - gamesapp
 ```
 
 ### 2. Clone the Repository
@@ -80,10 +80,10 @@ sudo su - wheelapp
 cd ~
 
 # Clone the repository
-git clone https://github.com/HasyimAP/shopee-fortune-wheel.git
+git clone https://github.com/HasyimAP/couple-fun-games.git
 
 # Navigate to the project directory
-cd shopee-fortune-wheel
+cd couple-fun-games
 ```
 
 ### 3. Install Dependencies
@@ -123,7 +123,7 @@ PM2 is a production process manager that keeps your application running, automat
 ### 1. Install PM2 Globally
 
 ```bash
-# Exit from wheelapp user if needed
+# Exit from gamesapp user if needed
 exit
 
 # Install PM2 globally
@@ -135,16 +135,16 @@ sudo npm install -g pm2
 Create a configuration file for PM2:
 
 ```bash
-# Switch back to wheelapp user
-sudo su - wheelapp
-cd ~/shopee-fortune-wheel
+# Switch back to gamesapp user
+sudo su - gamesapp
+cd ~/couple-fun-games
 
 # Create ecosystem config
 cat > ecosystem.config.js << 'EOF'
 module.exports = {
   apps: [
     {
-      name: 'wheel-backend',
+      name: 'games-backend',
       script: 'backend/server.js',
       instances: 1,
       autorestart: true,
@@ -177,7 +177,7 @@ pm2 start ecosystem.config.js
 pm2 status
 
 # View logs
-pm2 logs wheel-backend
+pm2 logs games-backend
 
 # Monitor the application
 pm2 monit
@@ -186,15 +186,15 @@ pm2 monit
 ### 4. Configure PM2 to Start on Boot
 
 ```bash
-# Exit from wheelapp user
+# Exit from gamesapp user
 exit
 
 # Generate startup script
-sudo pm2 startup systemd -u wheelapp --hp /home/wheelapp
+sudo pm2 startup systemd -u gamesapp --hp /home/gamesapp
 
-# Switch back to wheelapp user
-sudo su - wheelapp
-cd ~/shopee-fortune-wheel
+# Switch back to gamesapp user
+sudo su - gamesapp
+cd ~/couple-fun-games
 
 # Save PM2 process list
 pm2 save
@@ -224,7 +224,7 @@ sudo systemctl enable nginx
 Create a new Nginx configuration file:
 
 ```bash
-sudo nano /etc/nginx/sites-available/wheel-of-love
+sudo nano /etc/nginx/sites-available/couple-fun-games
 ```
 
 Add the following configuration (replace `your-domain.com` with your actual domain or use server's IP):
@@ -235,7 +235,7 @@ server {
     server_name your-domain.com www.your-domain.com;  # Replace with your domain or server IP
 
     # Frontend - serve static files from dist directory
-    root /home/wheelapp/shopee-fortune-wheel/dist;
+    root /home/gamesapp/couple-fun-games/dist;
     index index.html;
 
     # Gzip compression
@@ -279,7 +279,7 @@ server {
 
 ```bash
 # Create symbolic link to enable the site
-sudo ln -s /etc/nginx/sites-available/wheel-of-love /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/couple-fun-games /etc/nginx/sites-enabled/
 
 # Remove default site (optional)
 sudo rm /etc/nginx/sites-enabled/default
@@ -296,7 +296,7 @@ sudo systemctl reload nginx
 Open your browser and navigate to:
 - `http://your-domain.com` or `http://your-server-ip`
 
-You should see the Wheel of Love application running!
+You should see the Couple Fun Games application running!
 
 ## SSL/HTTPS Setup
 
@@ -392,27 +392,27 @@ sudo firewall-cmd --list-all
 pm2 status
 
 # View logs
-pm2 logs wheel-backend
+pm2 logs games-backend
 
 # View real-time logs
-pm2 logs wheel-backend --lines 100
+pm2 logs games-backend --lines 100
 
 # Restart application
-pm2 restart wheel-backend
+pm2 restart games-backend
 
 # Stop application
-pm2 stop wheel-backend
+pm2 stop games-backend
 
 # Delete from PM2
-pm2 delete wheel-backend
+pm2 delete games-backend
 ```
 
 ### Updating the Application
 
 ```bash
-# Switch to wheelapp user
-sudo su - wheelapp
-cd ~/shopee-fortune-wheel
+# Switch to gamesapp user
+sudo su - gamesapp
+cd ~/couple-fun-games
 
 # Pull latest changes
 git pull origin main
@@ -424,7 +424,7 @@ npm install --production
 npm run build
 
 # Restart backend with PM2
-pm2 restart wheel-backend
+pm2 restart games-backend
 
 # Exit back to main user
 exit

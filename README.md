@@ -1,32 +1,26 @@
-# 🎡 Wheel of Love - Shopee Challenge Edition 💕
+# 🎮 Couple Fun Games 💕
 
-A fun, interactive Wheel of Fortune-inspired web game for couples! Spin the wheel, guess letters, and win your Shopee shopping budget!
+A collection of fun, interactive web games designed for couples to enjoy together!
 
-## 🎮 Game Overview
+## 🎯 What is Couple Fun Games?
 
-**Wheel of Love** is a browser-based game where your girlfriend can:
+**Couple Fun Games** is a platform that hosts multiple browser-based games for couples. Each game is designed to be fun, interactive, and engaging, perfect for quality time together or friendly challenges.
+
+## 🎡 Available Games
+
+### Shopee Fortune Wheel
+A fun, interactive Wheel of Fortune-inspired game! Spin the wheel, guess letters, and win your Shopee shopping budget!
+
+**Game Features:**
 - Spin a colorful wheel to get random values (customizable by host)
 - Guess consonant letters to reveal a secret phrase
 - Purchase vowels using accumulated points
-- Try to solve the full phrase for bonus points
-- The final score becomes the Shopee shopping budget!
+- Solve the full phrase for bonus points
+- Final score becomes the Shopee shopping budget!
 
-## 🎯 Game Rules
+**[📖 Full Game Documentation](docs/games/shopee-fortune-wheel.md)** - Detailed rules, strategies, and tips
 
-1. **Spin the Wheel**: Get a random value based on weighted probabilities
-2. **Guess Consonants**: 
-   - ✅ Correct guess → ADD the spun value to your score
-   - ❌ Wrong guess → SUBTRACT the spun value from your score
-3. **Buy Vowels**: 
-   - Cost increases with each purchase (1x, 2x, 3x, etc. of the initial vowel price)
-   - Default: First vowel costs Rp 5,000, second Rp 10,000, third Rp 15,000...
-   - The host can adjust the initial vowel price
-4. **Solve the Phrase**:
-   - ✅ Correct answer → Get bonus for each unguessed letter (default: 5k per letter)
-   - The game shows exactly how many letters you didn't guess and the total bonus
-   - The host can adjust the bonus per letter
-   - ❌ Wrong answer → LOSE HALF your score
-5. **Final Score** = Your Shopee Budget! 🛍️
+More games coming soon! 🚀
 
 ## 🚀 Getting Started
 
@@ -46,18 +40,18 @@ For deploying to a production Linux server:
 
 ### Quick Start (If you already have Node.js)
 
-### Prerequisites
+#### Prerequisites
 
 Make sure you have **Node.js** installed on your laptop:
 - Download from: https://nodejs.org/ (LTS version recommended)
 - Check installation: `node --version` and `npm --version`
 
-### Installation
+#### Installation
 
 1. **Clone or download this repository**:
    ```bash
-   git clone https://github.com/HasyimAP/shopee-fortune-wheel.git
-   cd shopee-fortune-wheel
+   git clone https://github.com/HasyimAP/couple-fun-games.git
+   cd couple-fun-games
    ```
 
 2. **Install dependencies**:
@@ -65,7 +59,7 @@ Make sure you have **Node.js** installed on your laptop:
    npm install
    ```
 
-### Running the Application
+#### Running the Application
 
 **Start both frontend and backend together**:
 ```bash
@@ -77,7 +71,7 @@ This will:
 - Start the Vite frontend dev server on `http://localhost:5173`
 - Open your browser automatically to `http://localhost:5173`
 
-### Alternative: Run Frontend and Backend Separately
+#### Alternative: Run Frontend and Backend Separately
 
 **Terminal 1 - Backend Server**:
 ```bash
@@ -89,50 +83,21 @@ npm run server
 npm run client
 ```
 
-## 📖 How to Play
+## 📖 How to Use the Platform
 
-### For the Host (You):
+1. Open the application at `http://localhost:5173`
+2. You'll see the **Couple Fun Games** homepage with all available games
+3. Click on any game card to start playing that game
+4. Follow the game-specific instructions (see individual game documentation)
+5. Use the back button to return to the game selection menu
 
-1. Open the game at `http://localhost:5173`
-2. Enter a secret phrase in the input field (e.g., "I LOVE YOU SO MUCH")
-3. **Choose your wheel configuration:**
-   - **Use Default Wheel**: Standard settings with balanced probabilities
-   - **Customize Wheel**: Set your own values and weights
-     - Add or remove values
-     - Adjust weights (lower weight = rarer value)
-     - Preview the probability distribution
-4. **Configure game settings:**
-   - **Initial Vowel Price**: Set the base cost for vowels (default: 5,000)
-     - Each subsequent vowel costs 2x, 3x, 4x, etc. of this amount
-   - **Bonus per Unguessed Letter**: Set reward for each letter not guessed when solving correctly (default: 5,000)
-5. Click **"Start Game"** to begin
+## 🎨 Platform Features
 
-### For the Player (Your Girlfriend):
-
-1. Click **"Spin the Wheel"** to get a random value
-2. Choose to either:
-   - **Guess a consonant** (B, C, D, F, G, H, J, K, L, M, N, P, Q, R, S, T, V, W, X, Y, Z)
-   - **Buy a vowel** (A, E, I, O, U) - if you have enough money
-   - **Guess the full phrase** - risky but can win big!
-3. Keep playing until you solve the phrase
-4. See your final Shopee budget with detailed bonus breakdown!
-   - View how many letters you didn't guess
-   - See which letters those were
-   - Check your bonus calculation
-
-## 🎨 Features
-
-- ✨ **Colorful, animated wheel** that spins with smooth animations
-- 🎯 **Interactive letter board** that reveals guessed letters
-- 💰 **Real-time score tracking** with clear visual feedback
-- 🔊 **Visual feedback** for spins, correct/wrong guesses
-- 📱 **Responsive design** that works on laptops and tablets
-- 🎊 **Celebration screen** showing final Shopee budget with detailed bonus breakdown
-- ⚙️ **Customizable wheel values and weights** - Host can control the game difficulty
-- 🎲 **Weighted random selection** - Rare values are harder to get
-- 💵 **Adjustable vowel pricing** - Host can set initial vowel price (increases multiplicatively)
-- 🎁 **Configurable bonus points** - Host can customize bonus per unguessed letter
-- 📊 **Detailed bonus information** - See exactly what letters weren't guessed and total bonus earned
+- ✨ **Multiple Games** - Collection of different games to choose from
+- 🎮 **Easy Navigation** - Simple homepage to select and launch games
+- 📱 **Responsive Design** - Works on laptops, tablets, and mobile devices
+- 🎯 **Game-Specific Features** - Each game has its own unique mechanics and customization options
+- 🔄 **Seamless Switching** - Return to the homepage anytime to try different games
 
 ## 🛠️ Technology Stack
 
@@ -148,45 +113,71 @@ npm run client
 ## 📁 Project Structure
 
 ```
-shopee-fortune-wheel/
+couple-fun-games/
 ├── backend/
-│   └── server.js          # Express backend server
+│   └── server.js              # Express backend server
 ├── src/
 │   ├── components/
-│   │   ├── HostSetup.jsx      # Initial setup screen
+│   │   ├── Homepage.jsx       # Main menu for game selection
+│   │   ├── ShopeeFortuneWheel.jsx  # Shopee game wrapper
+│   │   ├── HostSetup.jsx      # Game setup screen
 │   │   ├── GameBoard.jsx      # Main game interface
 │   │   ├── Wheel.jsx          # Spinning wheel component
 │   │   ├── PhraseBoard.jsx    # Letter display board
 │   │   ├── FinalSummary.jsx   # End game summary
+│   │   ├── HelpModal.jsx      # Help and instructions
 │   │   └── *.css              # Component styles
-│   ├── App.jsx            # Main app component
-│   ├── main.jsx           # React entry point
-│   └── index.css          # Global styles
-├── index.html             # HTML template
-├── package.json           # Dependencies and scripts
-├── vite.config.js         # Vite configuration
-└── README.md              # This file
+│   ├── App.jsx                # Main app component
+│   ├── main.jsx               # React entry point
+│   └── index.css              # Global styles
+├── docs/
+│   ├── README.md              # Documentation index
+│   ├── SETUP-WINDOWS.md       # Windows setup guide
+│   ├── SETUP-LINUX.md         # Linux setup guide
+│   ├── SETUP-MACOS.md         # macOS setup guide
+│   ├── DEPLOYMENT-LINUX.md    # Linux deployment guide
+│   └── games/
+│       └── shopee-fortune-wheel.md  # Individual game docs
+├── index.html                 # HTML template
+├── package.json               # Dependencies and scripts
+├── vite.config.js             # Vite configuration
+└── README.md                  # This file
 ```
+
+## 📚 Documentation
+
+For comprehensive documentation, see:
+
+- **[Documentation Index](docs/README.md)** - Complete documentation overview
+- **[Setup Guides](docs/README.md#setup-guides)** - Platform-specific installation instructions
+- **[Individual Game Docs](docs/README.md#individual-game-documentation)** - Detailed game rules and features
 
 ## 🎨 Customization Ideas
 
-### Easy Modifications:
+### Adding New Games:
 
-1. **Change wheel values and weights**: Use the built-in customization UI in the host setup screen
-2. **Adjust vowel pricing**: Use the initial vowel price setting in the host setup screen
-3. **Modify bonus points**: Use the bonus per letter setting in the host setup screen
-4. **Modify colors**: Update CSS gradient values in component CSS files
-5. **Add sound effects**: Include audio files and play on events
+1. Create a new game component in `src/components/`
+2. Add the game to the `games` array in `Homepage.jsx`
+3. Update the router in `App.jsx` to handle the new game
+4. Create game-specific documentation in `docs/games/`
+5. Update `docs/README.md` to include the new game
+
+### Styling:
+
+1. **Modify colors**: Update CSS gradient values in component CSS files
+2. **Add animations**: Enhance existing CSS animations or add new ones
+3. **Customize themes**: Create game-specific color schemes
 
 ### Future Enhancements:
 
-- 🎵 Add real sound effects (wheel spin, ding for correct, buzz for wrong)
-- 💾 Add localStorage to save high scores
+- 🎵 Add sound effects (wheel spin, ding for correct, buzz for wrong)
+- 💾 Add localStorage to save game history and preferences
 - 🎨 Integrate Tailwind CSS for easier styling
-- 🌐 Deploy to Vercel/Netlify for online play (or use the [deployment guide](docs/DEPLOYMENT-LINUX.md) for your own server)
-- 📊 Add statistics and game history
-- 🎭 Multiple phrase categories
-- ⏱️ Add timer for extra challenge
+- 🌐 Deploy to Vercel/Netlify for online play (or use the [deployment guide](docs/DEPLOYMENT-LINUX.md))
+- 📊 Add statistics and achievements across all games
+- 🎭 Add more games to the collection
+- 👥 Add multiplayer support
+- 🔐 Add user authentication and profiles
 
 ## 🐛 Troubleshooting
 
@@ -213,6 +204,8 @@ npm install
 ### Browser doesn't open automatically
 Manually open your browser and go to: `http://localhost:5173`
 
+For more detailed troubleshooting, see your [platform-specific setup guide](docs/README.md#setup-guides).
+
 ## 📝 Development Tips
 
 ### Build for Production:
@@ -226,9 +219,13 @@ This creates a `dist/` folder with optimized files.
 npm run preview
 ```
 
+### Adding New Games:
+
+See the [Customization section](#customization-ideas) and [Documentation Guide](docs/README.md) for details on adding new games to the platform.
+
 ## 💝 Made with Love
 
-This game was created for a special couple's Shopee challenge. Have fun playing and enjoy your shopping! 🛍️
+This platform was created to host fun, interactive games for couples. Have fun playing and enjoy quality time together! 🛍️
 
 ## 📄 License
 
@@ -237,12 +234,19 @@ This project is open source and available for personal use.
 ## 🤝 Contributing
 
 Feel free to fork this project and add your own features! Some ideas:
-- Add different game modes
-- Create mobile-responsive design
-- Add multiplayer support
-- Integrate with actual Shopee API
-- Add authentication and user profiles
+- Add new games to the collection
+- Improve the UI/UX of the game selection menu
+- Add mobile-optimized versions
+- Create game variants and difficulty levels
+- Add multiplayer features
+- Integrate social sharing features
+
+When contributing:
+- Follow the existing code structure
+- Create documentation for new games in `docs/games/`
+- Update the relevant README files
+- Test on multiple platforms
 
 ---
 
-**Happy Spinning! 🎡💕**
+**Happy Gaming! 🎮💕**

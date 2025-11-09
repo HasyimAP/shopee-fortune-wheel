@@ -1,6 +1,6 @@
-# 🪟 Windows Setup Guide - Wheel of Love
+# 🪟 Windows Setup Guide - Couple Fun Games
 
-This guide will walk you through setting up and running the Wheel of Love game on Windows from scratch.
+This guide will walk you through setting up and running Couple Fun Games on Windows from scratch.
 
 ## Prerequisites Check
 
@@ -111,12 +111,12 @@ winget install Git.Git
 
 3. **Clone the repository:**
    ```cmd
-   git clone https://github.com/HasyimAP/shopee-fortune-wheel.git
+   git clone https://github.com/HasyimAP/couple-fun-games.git
    ```
 
 4. **Navigate into the project:**
    ```cmd
-   cd shopee-fortune-wheel
+   cd couple-fun-games
    ```
 
 ## Step 4: Install Project Dependencies
@@ -156,12 +156,14 @@ npm run server
 npm run client
 ```
 
-## Step 6: Play the Game!
+## Step 6: Play the Games!
 
-1. Enter a secret phrase in the setup screen
-2. Configure the wheel settings (use default or customize)
-3. Click "Start Game"
-4. Have fun spinning and guessing!
+1. The homepage will display all available games
+2. Select a game from the list
+3. Follow the game-specific instructions
+4. Have fun playing!
+
+For detailed game rules and features, see the [individual game documentation](README.md#individual-game-documentation).
 
 ## Troubleshooting
 
