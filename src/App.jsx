@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './App.css';
 import Homepage from './components/Homepage';
 import ShopeeFortuneWheel from './components/ShopeeFortuneWheel';
+import LanguageSwitcher from './components/LanguageSwitcher';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 function App() {
   const [currentView, setCurrentView] = useState('home'); // home, shopee-fortune-wheel
@@ -18,12 +20,15 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {currentView === 'home' && <Homepage onSelectGame={handleSelectGame} />}
-      {currentView === 'game' && selectedGame === 'shopee-fortune-wheel' && (
-        <ShopeeFortuneWheel onBackToHome={handleBackToHome} />
-      )}
-    </div>
+    <LanguageProvider>
+      <div className="App">
+        <LanguageSwitcher />
+        {currentView === 'home' && <Homepage onSelectGame={handleSelectGame} />}
+        {currentView === 'game' && selectedGame === 'shopee-fortune-wheel' && (
+          <ShopeeFortuneWheel onBackToHome={handleBackToHome} />
+        )}
+      </div>
+    </LanguageProvider>
   );
 }
 

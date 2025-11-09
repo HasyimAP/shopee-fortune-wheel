@@ -3,13 +3,17 @@ import './GameBoard.css';
 import Wheel from './Wheel';
 import PhraseBoard from './PhraseBoard';
 import HelpModal from './HelpModal';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getTranslation } from '../translations';
 
 function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter = 5000, currency = 'IDR' }) {
+  const { language } = useLanguage();
+  const t = getTranslation(language);
   const [score, setScore] = useState(0);
   const [guessedLetters, setGuessedLetters] = useState(new Set());
   const [currentSpinValue, setCurrentSpinValue] = useState(0);
   const [vowelsPurchased, setVowelsPurchased] = useState(0);
-  const [message, setMessage] = useState('Spin the wheel to start!');
+  const [message, setMessage] = useState(t.gameBoard.initialMessage);
   const [messageType, setMessageType] = useState('info'); // success, error, info
   const [fullPhraseGuess, setFullPhraseGuess] = useState('');
   const [showFullPhraseInput, setShowFullPhraseInput] = useState(false);
@@ -33,25 +37,25 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
       });
       const data = await response.json();
       setCurrentSpinValue(data.value);
-      showMessage(`You spun: ${currency} ${data.value.toLocaleString()}! Now guess a consonant.`, 'info');
+      showMessage(`${t.gameBoard.spinResult}: ${currency} ${data.value.toLocaleString()}! ${t.gameBoard.nowGuessConsonant}`, 'info');
     } catch (error) {
-      showMessage('Error spinning the wheel. Please try again.', 'error');
+      showMessage(t.gameBoard.errorSpinning, 'error');
     }
   };
 
   const handleConsonantGuess = (letter) => {
     if (!currentSpinValue) {
-      showMessage('Please spin the wheel first!', 'error');
+      showMessage(t.gameBoard.spinFirst, 'error');
       return;
     }
 
     if (guessedLetters.has(letter)) {
-      showMessage('You already guessed that letter!', 'error');
+      showMessage(t.gameBoard.alreadyGuessed, 'error');
       return;
     }
 
     if (!consonants.has(letter)) {
-      showMessage('Please guess a consonant!', 'error');
+      showMessage(t.gameBoard.guessConsonant, 'error');
       return;
     }
 
@@ -62,12 +66,12 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
     if (isCorrect) {
       const newScore = score + currentSpinValue;
       setScore(newScore);
-      showMessage(`Correct! "${letter}" is in the phrase. +${currency} ${currentSpinValue.toLocaleString()}`, 'success');
+      showMessage(`${t.gameBoard.correct} "${letter}" ${t.gameBoard.inPhrase} +${currency} ${currentSpinValue.toLocaleString()}`, 'success');
     } else {
       const penalty = Math.floor(currentSpinValue / 2);
       const newScore = Math.max(0, score - penalty);
       setScore(newScore);
-      showMessage(`Wrong! "${letter}" is not in the phrase. -${currency} ${penalty.toLocaleString()}`, 'error');
+      showMessage(`${t.gameBoard.wrong} "${letter}" ${t.gameBoard.notInPhrase} -${currency} ${penalty.toLocaleString()}`, 'error');
     }
     
     setCurrentSpinValue(0);
@@ -75,19 +79,19 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
 
   const handleVowelPurchase = (letter) => {
     if (guessedLetters.has(letter)) {
-      showMessage('You already guessed that letter!', 'error');
+      showMessage(t.gameBoard.alreadyGuessed, 'error');
       return;
     }
 
     if (!vowels.has(letter)) {
-      showMessage('That is not a vowel!', 'error');
+      showMessage(t.gameBoard.guessConsonant, 'error');
       return;
     }
 
     const cost = getVowelCost();
     
     if (score < cost) {
-      showMessage(`Not enough money! You need ${currency} ${cost.toLocaleString()}`, 'error');
+      showMessage(`${t.gameBoard.cannotAfford} ${currency} ${cost.toLocaleString()}`, 'error');
       return;
     }
 
@@ -98,9 +102,9 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
 
     const isInPhrase = secretPhrase.includes(letter);
     if (isInPhrase) {
-      showMessage(`You purchased "${letter}" for ${currency} ${cost.toLocaleString()}. It's in the phrase!`, 'success');
+      showMessage(`${t.gameBoard.vowelPurchased} "${letter}" ${t.gameBoard.vowelInPhrase}`, 'success');
     } else {
-      showMessage(`You purchased "${letter}" for ${currency} ${cost.toLocaleString()}. It's not in the phrase.`, 'info');
+      showMessage(`${t.gameBoard.vowelPurchased} "${letter}" ${t.gameBoard.vowelNotInPhrase}`, 'info');
     }
   };
 
@@ -130,13 +134,13 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
         scoreBeforeBonus: score
       };
       
-      showMessage(`🎉 CORRECT! You won! Bonus: ${currency} ${bonus.toLocaleString()}`, 'success');
+      showMessage(`${t.gameBoard.congratulations} ${t.gameBoard.bonusAwarded} ${hiddenLettersCount} ${t.gameBoard.unguessedLetters}`, 'success');
       
       setTimeout(() => onGameEnd(finalScore, bonusInfo), 2000);
     } else {
       const newScore = Math.floor(score / 2);
       setScore(newScore);
-      showMessage(`❌ Wrong phrase! You lose half your score.`, 'error');
+      showMessage(t.gameBoard.incorrectPhrase, 'error');
       setShowFullPhraseInput(false);
       setFullPhraseGuess('');
     }
@@ -144,8 +148,8 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
 
   return (
     <div className="game-board">
-      <button className="help-button" onClick={() => setShowHelp(true)} title="How to Play">
-        ❓ Help
+      <button className="help-button" onClick={() => setShowHelp(true)} title={language === 'en' ? 'How to Play' : 'Cara Bermain'}>
+        {t.gameBoard.helpButton}
       </button>
       
       <div className="game-container">
@@ -156,9 +160,9 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
         </div>
 
         <div className="score-display">
-          <h2>Current Score: {currency} {score.toLocaleString()}</h2>
-          <p>Vowels Purchased: {vowelsPurchased}</p>
-          <p>Next Vowel Cost: {currency} {getVowelCost().toLocaleString()}</p>
+          <h2>{t.gameBoard.score}: {currency} {score.toLocaleString()}</h2>
+          <p>{t.gameBoard.buyVowel}: {vowelsPurchased}</p>
+          <p>{t.gameBoard.cost}: {currency} {getVowelCost().toLocaleString()}</p>
         </div>
 
         <Wheel onSpin={handleSpin} currentValue={currentSpinValue} />
@@ -170,7 +174,7 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
 
         <div className="game-controls">
           <div className="letter-input">
-            <h3>Guess a Consonant</h3>
+            <h3>{t.gameBoard.consonants}</h3>
             <div className="consonant-grid">
               {[...'BCDFGHJKLMNPQRSTVWXYZ'].map(letter => (
                 <button
@@ -186,7 +190,7 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
           </div>
 
           <div className="vowel-purchase">
-            <h3>Buy a Vowel ({currency} {getVowelCost().toLocaleString()})</h3>
+            <h3>{t.gameBoard.vowels} ({currency} {getVowelCost().toLocaleString()})</h3>
             <div className="vowel-grid">
               {[...'AEIOU'].map(letter => (
                 <button
@@ -207,7 +211,7 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
                 className="guess-phrase-button"
                 onClick={() => setShowFullPhraseInput(true)}
               >
-                🎯 Guess the Full Phrase
+                {t.gameBoard.guessPhraseButton}
               </button>
             ) : (
               <div className="phrase-guess-input">
@@ -215,13 +219,13 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
                   type="text"
                   value={fullPhraseGuess}
                   onChange={(e) => setFullPhraseGuess(e.target.value)}
-                  placeholder="Type the full phrase..."
+                  placeholder={t.gameBoard.yourGuess}
                   className="phrase-input"
                   autoFocus
                 />
                 <div className="phrase-buttons">
                   <button onClick={handleFullPhraseGuess} className="submit-button">
-                    Submit Guess
+                    {t.gameBoard.submitButton}
                   </button>
                   <button 
                     onClick={() => {
@@ -230,12 +234,21 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
                     }}
                     className="cancel-button"
                   >
-                    Cancel
+                    {t.gameBoard.cancelButton}
                   </button>
                 </div>
               </div>
             )}
           </div>
+        </div>
+
+        <div className="game-bottom-controls">
+          <button className="help-button" onClick={() => setShowHelp(true)}>
+            {t.gameBoard.helpButton}
+          </button>
+          <button className="end-game-button" onClick={() => onGameEnd(score, null)}>
+            {t.gameBoard.endGameButton}
+          </button>
         </div>
       </div>
       

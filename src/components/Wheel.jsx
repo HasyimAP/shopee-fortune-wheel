@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import './Wheel.css';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getTranslation } from '../translations';
 
 function Wheel({ onSpin, currentValue }) {
+  const { language } = useLanguage();
+  const t = getTranslation(language);
   const [isSpinning, setIsSpinning] = useState(false);
 
   const handleSpin = async () => {
@@ -26,12 +30,12 @@ function Wheel({ onSpin, currentValue }) {
             {currentValue ? (
               <>
                 <div className="wheel-value">Rp {currentValue.toLocaleString()}</div>
-                <div className="wheel-label">You spun!</div>
+                <div className="wheel-label">{t.wheel.youSpun}</div>
               </>
             ) : (
               <>
                 <div className="wheel-icon">🎡</div>
-                <div className="wheel-label">Spin Me!</div>
+                <div className="wheel-label">{t.wheel.spinMe}</div>
               </>
             )}
           </div>
@@ -57,11 +61,11 @@ function Wheel({ onSpin, currentValue }) {
         onClick={handleSpin}
         disabled={isSpinning || currentValue > 0}
       >
-        {isSpinning ? '🎡 Spinning...' : currentValue ? '✅ Spun!' : '🎯 Spin the Wheel!'}
+        {isSpinning ? t.wheel.spinning : currentValue ? t.wheel.spun : t.wheel.spinWheel}
       </button>
 
       {isSpinning && (
-        <div className="spin-sound">🔊 Wheeeee!</div>
+        <div className="spin-sound">{t.wheel.sound}</div>
       )}
     </div>
   );

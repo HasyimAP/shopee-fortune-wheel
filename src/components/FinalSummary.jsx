@@ -1,13 +1,18 @@
 import './FinalSummary.css';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getTranslation } from '../translations';
 
 function FinalSummary({ score, onRestart, bonusDetails, currency = 'IDR' }) {
+  const { language } = useLanguage();
+  const t = getTranslation(language);
+
   return (
     <div className="final-summary">
       <div className="summary-container">
-        <h1 className="summary-title">🎊 Game Over! 🎊</h1>
+        <h1 className="summary-title">{t.finalSummary.title}</h1>
         
         <div className="final-score-display">
-          <h2>Your Shopee Budget</h2>
+          <h2>{t.finalSummary.shopeeBudget}</h2>
           <div className="final-score">
             {currency} {score.toLocaleString()}
           </div>
@@ -15,15 +20,15 @@ function FinalSummary({ score, onRestart, bonusDetails, currency = 'IDR' }) {
 
         {bonusDetails && (
           <div className="bonus-details">
-            <h3>🎁 Bonus Details</h3>
+            <h3>{t.finalSummary.bonusDetails}</h3>
             <div className="bonus-info">
-              <p><strong>Score before bonus:</strong> {currency} {bonusDetails.scoreBeforeBonus.toLocaleString()}</p>
-              <p><strong>Unguessed letters count:</strong> {bonusDetails.hiddenLettersCount}</p>
+              <p><strong>{t.finalSummary.scoreBeforeBonus}</strong> {currency} {bonusDetails.scoreBeforeBonus.toLocaleString()}</p>
+              <p><strong>{t.finalSummary.unguessedCount}</strong> {bonusDetails.hiddenLettersCount}</p>
               {bonusDetails.hiddenLettersCount > 0 && (
-                <p><strong>Unguessed letters:</strong> {bonusDetails.hiddenLettersList.join(', ')}</p>
+                <p><strong>{t.finalSummary.unguessedLetters}</strong> {bonusDetails.hiddenLettersList.join(', ')}</p>
               )}
-              <p><strong>Bonus per letter:</strong> {currency} {bonusDetails.bonusPerLetter.toLocaleString()}</p>
-              <p className="total-bonus"><strong>Total bonus:</strong> {currency} {bonusDetails.totalBonus.toLocaleString()}</p>
+              <p><strong>{t.finalSummary.bonusPerLetter}</strong> {currency} {bonusDetails.bonusPerLetter.toLocaleString()}</p>
+              <p className="total-bonus"><strong>{t.finalSummary.totalBonus}</strong> {currency} {bonusDetails.totalBonus.toLocaleString()}</p>
             </div>
           </div>
         )}
@@ -33,39 +38,39 @@ function FinalSummary({ score, onRestart, bonusDetails, currency = 'IDR' }) {
             <>
               <div className="celebration-icon">🎉🎉🎉</div>
               <p className="celebration-message">
-                Amazing! You're ready for a shopping spree! 🛍️
+                {t.finalSummary.celebrations.amazing}
               </p>
             </>
           ) : score >= 20000 ? (
             <>
               <div className="celebration-icon">🎈🎈</div>
               <p className="celebration-message">
-                Great job! That's a nice budget! 💰
+                {t.finalSummary.celebrations.great}
               </p>
             </>
           ) : score > 0 ? (
             <>
               <div className="celebration-icon">✨</div>
               <p className="celebration-message">
-                Not bad! Every rupiah counts! 💕
+                {t.finalSummary.celebrations.notBad}
               </p>
             </>
           ) : (
             <>
               <div className="celebration-icon">💔</div>
               <p className="celebration-message">
-                Oh no! Better luck next time! 🎯
+                {t.finalSummary.celebrations.ohNo}
               </p>
             </>
           )}
         </div>
 
         <button className="restart-button" onClick={onRestart}>
-          🔄 Play Again
+          {t.finalSummary.playAgain}
         </button>
 
         <div className="shopee-message">
-          <p>Time to go shopping on Shopee! 🛒</p>
+          <p>{t.finalSummary.shopeeMessage}</p>
           <p className="shopee-emoji">🧡</p>
         </div>
       </div>

@@ -1,11 +1,16 @@
 import './Homepage.css';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getTranslation } from '../translations';
 
 function Homepage({ onSelectGame }) {
+  const { language } = useLanguage();
+  const t = getTranslation(language);
+
   const games = [
     {
       id: 'shopee-fortune-wheel',
-      name: 'Shopee Fortune Wheel',
-      description: 'Spin the wheel, guess letters, and win your shopping budget! A fun Wheel of Fortune-inspired game.',
+      name: t.homepage.shopeeFortuneWheel.name,
+      description: t.homepage.shopeeFortuneWheel.description,
       emoji: '🎡'
     }
   ];
@@ -13,14 +18,13 @@ function Homepage({ onSelectGame }) {
   return (
     <div className="homepage">
       <div className="homepage-container">
-        <h1 className="homepage-title">🎮 Couple Fun Games 💕</h1>
+        <h1 className="homepage-title">{t.homepage.title}</h1>
         <p className="homepage-intro">
-          Welcome to Couple Fun Games! A collection of fun, interactive games designed for couples to enjoy together. 
-          Pick a game below and start having fun!
+          {t.homepage.intro}
         </p>
 
         <div className="games-list">
-          <h2>Available Games:</h2>
+          <h2>{t.homepage.availableGames}</h2>
           <div className="games-grid">
             {games.map((game) => (
               <div key={game.id} className="game-card">
@@ -31,7 +35,7 @@ function Homepage({ onSelectGame }) {
                   onClick={() => onSelectGame(game.id)}
                   className="play-button"
                 >
-                  Play Now 🎮
+                  {t.homepage.playNow}
                 </button>
               </div>
             ))}

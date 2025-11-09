@@ -3,8 +3,12 @@ import './ShopeeFortuneWheel.css';
 import HostSetup from './HostSetup';
 import GameBoard from './GameBoard';
 import FinalSummary from './FinalSummary';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getTranslation } from '../translations';
 
 function ShopeeFortuneWheel({ onBackToHome }) {
+  const { language } = useLanguage();
+  const t = getTranslation(language);
   const [gameState, setGameState] = useState('setup'); // setup, playing, finished
   const [secretPhrase, setSecretPhrase] = useState('');
   const [score, setScore] = useState(0);
@@ -42,7 +46,7 @@ function ShopeeFortuneWheel({ onBackToHome }) {
   return (
     <div className="shopee-fortune-wheel">
       <button className="back-to-home" onClick={onBackToHome}>
-        ← Back to Home
+        {t.finalSummary.backToHome}
       </button>
       {gameState === 'setup' && <HostSetup onStart={startGame} />}
       {gameState === 'playing' && (

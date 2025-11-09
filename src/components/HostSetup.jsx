@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import './HostSetup.css';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getTranslation } from '../translations';
 
 function HostSetup({ onStart }) {
+  const { language } = useLanguage();
+  const t = getTranslation(language);
   const [phrase, setPhrase] = useState('');
   const [useCustomWheel, setUseCustomWheel] = useState(false);
   const [wheelConfig, setWheelConfig] = useState([]);
@@ -64,39 +68,39 @@ function HostSetup({ onStart }) {
   return (
     <div className="host-setup">
       <div className="host-setup-container">
-        <h1 className="title">🎡 Shopee Fortune Wheel 💕</h1>
-        <p className="subtitle">Spin, Guess, and Win!</p>
+        <h1 className="title">{t.hostSetup.title}</h1>
+        <p className="subtitle">{t.hostSetup.subtitle}</p>
         
         <form onSubmit={handleSubmit} className="setup-form">
-          <label htmlFor="phrase">Enter the Secret Phrase:</label>
+          <label htmlFor="phrase">{t.hostSetup.secretPhraseLabel}</label>
           <input
             id="phrase"
             type="password"
             value={phrase}
             onChange={(e) => setPhrase(e.target.value)}
-            placeholder="e.g., I LOVE YOU SO MUCH"
+            placeholder={t.hostSetup.secretPhrasePlaceholder}
             className="phrase-input"
             autoFocus
           />
 
           <div className="config-input-group">
-            <label htmlFor="currency">Currency Code:</label>
+            <label htmlFor="currency">{t.hostSetup.currencyLabel}</label>
             <input
               id="currency"
               type="text"
               value={currency}
               onChange={(e) => setCurrency(e.target.value.toUpperCase())}
-              placeholder="e.g., IDR, USD, EUR"
+              placeholder={t.hostSetup.currencyPlaceholder}
               className="currency-input"
               maxLength="10"
             />
             <p className="config-hint">
-              💡 Set the currency code for displaying values (e.g., IDR, USD, EUR)
+              {t.hostSetup.currencyHint}
             </p>
           </div>
 
           <div className="wheel-config-section">
-            <h3>Wheel Configuration:</h3>
+            <h3>{t.hostSetup.wheelConfigTitle}</h3>
             <div className="wheel-option">
               <label>
                 <input
@@ -104,7 +108,7 @@ function HostSetup({ onStart }) {
                   checked={!useCustomWheel}
                   onChange={() => setUseCustomWheel(false)}
                 />
-                <span>Use Default Wheel (Recommended)</span>
+                <span>{t.hostSetup.useDefaultWheel}</span>
               </label>
             </div>
             <div className="wheel-option">
@@ -114,20 +118,20 @@ function HostSetup({ onStart }) {
                   checked={useCustomWheel}
                   onChange={() => setUseCustomWheel(true)}
                 />
-                <span>Customize Wheel Values and Weights</span>
+                <span>{t.hostSetup.customizeWheel}</span>
               </label>
             </div>
 
             {useCustomWheel && (
               <div className="custom-wheel-config">
                 <p className="config-hint">
-                  💡 Tip: Lower weight = rarer value. Weights are relative to each other.
+                  {t.hostSetup.configHint}
                 </p>
                 <div className="config-table">
                   <div className="config-header">
-                    <span>Value ({currency})</span>
-                    <span>Weight (Rarity)</span>
-                    <span>Action</span>
+                    <span>{t.hostSetup.valueLabel} ({currency})</span>
+                    <span>{t.hostSetup.weightLabel}</span>
+                    <span>{t.hostSetup.actionLabel}</span>
                   </div>
                   {wheelConfig.map((item, index) => (
                     <div key={index} className="config-row">
@@ -160,10 +164,10 @@ function HostSetup({ onStart }) {
                 </div>
                 <div className="config-actions">
                   <button type="button" onClick={addWheelValue} className="add-button">
-                    ➕ Add Value
+                    {t.hostSetup.addValue}
                   </button>
                   <button type="button" onClick={resetToDefault} className="reset-button">
-                    🔄 Reset to Default
+                    {t.hostSetup.resetToDefault}
                   </button>
                 </div>
               </div>
@@ -171,9 +175,9 @@ function HostSetup({ onStart }) {
           </div>
 
           <div className="game-config-section">
-            <h3>Game Settings:</h3>
+            <h3>{t.hostSetup.gameSettingsTitle}</h3>
             <div className="config-input-group">
-              <label htmlFor="vowelPrice">Initial Vowel Price ({currency}):</label>
+              <label htmlFor="vowelPrice">{t.hostSetup.vowelPriceLabel} ({currency}):</label>
               <input
                 id="vowelPrice"
                 type="number"
@@ -184,11 +188,11 @@ function HostSetup({ onStart }) {
                 className="config-input"
               />
               <p className="config-hint">
-                💡 1st vowel costs this amount, 2nd costs 2x, 3rd costs 3x, etc.
+                {t.hostSetup.vowelPriceHint}
               </p>
             </div>
             <div className="config-input-group">
-              <label htmlFor="bonusPerLetter">Bonus Points per Unguessed Letter ({currency}):</label>
+              <label htmlFor="bonusPerLetter">{t.hostSetup.bonusPerLetterLabel} ({currency}):</label>
               <input
                 id="bonusPerLetter"
                 type="number"
@@ -199,44 +203,45 @@ function HostSetup({ onStart }) {
                 className="config-input"
               />
               <p className="config-hint">
-                💡 Bonus awarded for each letter not guessed when solving the phrase correctly.
+                {t.hostSetup.bonusPerLetterHint}
               </p>
             </div>
           </div>
 
           <button type="submit" className="start-button" disabled={!phrase.trim()}>
-            Start Game 🎮
+            {t.hostSetup.startButton}
           </button>
         </form>
 
         <div className="rules">
-          <h3>📖 How to Play:</h3>
+          <h3>{t.hostSetup.rulesTitle}</h3>
           <ul>
-            <li>🎡 <strong>Spin the Wheel:</strong> Click "Spin" to get a random value that determines your potential points</li>
-            <li>🔤 <strong>Guess Consonants:</strong> After spinning, select a consonant letter
+            <li dangerouslySetInnerHTML={{ __html: t.hostSetup.rules.spinWheel }} />
+            <li>
+              <span dangerouslySetInnerHTML={{ __html: t.hostSetup.rules.guessConsonants }} />
               <ul style={{ marginTop: '5px', marginLeft: '20px' }}>
-                <li>✅ If correct: ADD the spun value to your score</li>
-                <li>❌ If wrong: LOSE HALF of the spun value from your score</li>
+                <li>{t.hostSetup.rules.guessCorrect}</li>
+                <li>{t.hostSetup.rules.guessWrong}</li>
               </ul>
             </li>
-            <li>💰 <strong>Buy Vowels:</strong> Purchase vowels (A, E, I, O, U) using your points
+            <li>
+              <span dangerouslySetInnerHTML={{ __html: t.hostSetup.rules.buyVowels }} />
               <ul style={{ marginTop: '5px', marginLeft: '20px' }}>
-                <li>1st vowel: {(vowelPrice / 1000).toFixed(0)}k {currency}</li>
-                <li>2nd vowel: {(vowelPrice * 2 / 1000).toFixed(0)}k {currency}</li>
-                <li>3rd vowel: {(vowelPrice * 3 / 1000).toFixed(0)}k {currency}, and so on...</li>
+                <li>{t.hostSetup.rules.vowel1st}: {(vowelPrice / 1000).toFixed(0)}k {currency}</li>
+                <li>{t.hostSetup.rules.vowel2nd}: {(vowelPrice * 2 / 1000).toFixed(0)}k {currency}</li>
+                <li>{t.hostSetup.rules.vowel3rd}: {(vowelPrice * 3 / 1000).toFixed(0)}k {currency}, {t.hostSetup.rules.andSoOn}</li>
               </ul>
             </li>
-            <li>🎯 <strong>Solve the Phrase:</strong> When you know the answer, click "Guess Full Phrase"
+            <li>
+              <span dangerouslySetInnerHTML={{ __html: t.hostSetup.rules.solvePhrase }} />
               <ul style={{ marginTop: '5px', marginLeft: '20px' }}>
-                <li>✅ If correct: Earn +{(bonusPerLetter / 1000).toFixed(0)}k {currency} bonus for each unguessed consonant!</li>
-                <li>❌ If wrong: LOSE HALF of your current score</li>
+                <li>{t.hostSetup.rules.solveCorrect} +{(bonusPerLetter / 1000).toFixed(0)}k {currency} {t.hostSetup.rules.solveCorrectBonus}</li>
+                <li>{t.hostSetup.rules.solveWrong}</li>
               </ul>
             </li>
-            <li>🛍️ <strong>Your Final Score = Your Shopee Shopping Budget!</strong></li>
+            <li dangerouslySetInnerHTML={{ __html: t.hostSetup.rules.finalScore }} />
           </ul>
-          <p style={{ marginTop: '15px', fontStyle: 'italic', fontSize: '0.9em' }}>
-            💡 <strong>Pro Tip:</strong> Balance between revealing letters and solving early to maximize your bonus points. Good luck! 🍀
-          </p>
+          <p style={{ marginTop: '15px', fontStyle: 'italic', fontSize: '0.9em' }} dangerouslySetInnerHTML={{ __html: t.hostSetup.rules.proTip }} />
         </div>
       </div>
     </div>
