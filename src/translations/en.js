@@ -36,6 +36,7 @@ export const en = {
     bonusPerLetterHint: '💡 Bonus awarded for each letter not guessed when solving the phrase correctly.',
     startButton: 'Start Game 🎮',
     rulesTitle: '📖 How to Play:',
+  holdToReveal: 'Hold to reveal',
     rules: {
       spinWheel: '🎡 <strong>Spin the Wheel:</strong> Click "Spin" to get a random value that determines your potential points',
       guessConsonants: '🔤 <strong>Guess Consonants:</strong> After spinning, select a consonant letter',
@@ -48,7 +49,7 @@ export const en = {
       andSoOn: 'and so on...',
       solvePhrase: '🎯 <strong>Solve the Phrase:</strong> When you know the answer, click "Guess Full Phrase"',
       solveCorrect: '✅ If correct: Earn',
-      solveCorrectBonus: 'bonus for each unguessed consonant!',
+      solveCorrectBonus: 'bonus for each unguessed letter!',
       solveWrong: '❌ If wrong: LOSE HALF of your current score',
       finalScore: '🛍️ <strong>Your Final Score = Your Shopee Shopping Budget!</strong>',
       proTip: '💡 <strong>Pro Tip:</strong> Balance between revealing letters and solving early to maximize your bonus points. Good luck! 🍀'

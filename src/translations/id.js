@@ -36,6 +36,7 @@ export const id = {
     bonusPerLetterHint: '💡 Bonus diberikan untuk setiap huruf yang belum ditebak saat menyelesaikan frasa dengan benar.',
     startButton: 'Mulai Permainan 🎮',
     rulesTitle: '📖 Cara Bermain:',
+  holdToReveal: 'Tahan untuk melihat',
     rules: {
       spinWheel: '🎡 <strong>Putar Roda:</strong> Klik "Putar" untuk mendapatkan nilai acak yang menentukan poin potensial Anda',
       guessConsonants: '🔤 <strong>Tebak Konsonan:</strong> Setelah memutar, pilih huruf konsonan',
@@ -48,7 +49,7 @@ export const id = {
       andSoOn: 'dan seterusnya...',
       solvePhrase: '🎯 <strong>Selesaikan Frasa:</strong> Ketika Anda tahu jawabannya, klik "Tebak Frasa Lengkap"',
       solveCorrect: '✅ Jika benar: Dapatkan',
-      solveCorrectBonus: 'bonus untuk setiap konsonan yang belum ditebak!',
+      solveCorrectBonus: 'bonus untuk setiap huruf yang belum ditebak!',
       solveWrong: '❌ Jika salah: KEHILANGAN SETENGAH dari skor Anda saat ini',
       finalScore: '🛍️ <strong>Skor Akhir Anda = Budget Belanja Shopee Anda!</strong>',
       proTip: '💡 <strong>Tips Pro:</strong> Seimbangkan antara mengungkap huruf dan menyelesaikan lebih awal untuk memaksimalkan poin bonus Anda. Semoga beruntung! 🍀'

@@ -243,11 +243,8 @@ function GameBoard({ secretPhrase, onGameEnd, vowelPrice = 5000, bonusPerLetter 
         </div>
 
         <div className="game-bottom-controls">
-          <button className="help-button" onClick={() => setShowHelp(true)}>
-            {t.gameBoard.helpButton}
-          </button>
-          <button className="end-game-button" onClick={() => onGameEnd(score, null)}>
-            {t.gameBoard.endGameButton}
+          <button className="floating-end-game-button" onClick={() => onGameEnd(score, null)} title={t.gameBoard.endGameButton}>
+            🏁
           </button>
         </div>
       </div>

@@ -7,6 +7,7 @@ function HostSetup({ onStart }) {
   const { language } = useLanguage();
   const t = getTranslation(language);
   const [phrase, setPhrase] = useState('');
+  const [isRevealHeld, setIsRevealHeld] = useState(false);
   const [useCustomWheel, setUseCustomWheel] = useState(false);
   const [wheelConfig, setWheelConfig] = useState([]);
   const [defaultConfig, setDefaultConfig] = useState([]);
@@ -73,15 +74,31 @@ function HostSetup({ onStart }) {
         
         <form onSubmit={handleSubmit} className="setup-form">
           <label htmlFor="phrase">{t.hostSetup.secretPhraseLabel}</label>
-          <input
-            id="phrase"
-            type="password"
-            value={phrase}
-            onChange={(e) => setPhrase(e.target.value)}
-            placeholder={t.hostSetup.secretPhrasePlaceholder}
-            className="phrase-input"
-            autoFocus
-          />
+          <div className="phrase-input-wrapper">
+            <input
+              id="phrase"
+              type={isRevealHeld ? 'text' : 'password'}
+              value={phrase}
+              onChange={(e) => setPhrase(e.target.value)}
+              placeholder={t.hostSetup.secretPhrasePlaceholder}
+              className="phrase-input"
+              autoFocus
+            />
+            <button
+              type="button"
+              className="reveal-button"
+              aria-label={t.hostSetup.holdToReveal || 'Hold to reveal'}
+              title={t.hostSetup.holdToReveal || 'Hold to reveal'}
+              onMouseDown={() => setIsRevealHeld(true)}
+              onMouseUp={() => setIsRevealHeld(false)}
+              onMouseLeave={() => setIsRevealHeld(false)}
+              onTouchStart={() => setIsRevealHeld(true)}
+              onTouchEnd={() => setIsRevealHeld(false)}
+              onTouchCancel={() => setIsRevealHeld(false)}
+            >
+              👁️
+            </button>
+          </div>
 
           <div className="config-input-group">
             <label htmlFor="currency">{t.hostSetup.currencyLabel}</label>
