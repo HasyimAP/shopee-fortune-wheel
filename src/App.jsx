@@ -3,6 +3,7 @@ import './App.css';
 import Homepage from './components/Homepage';
 import ShopeeFortuneWheel from './components/ShopeeFortuneWheel';
 import TalkDeck from './components/TalkDeck';
+import TruthOrDare from './components/TruthOrDare';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { LanguageProvider } from './contexts/LanguageContext';
 
@@ -30,6 +31,9 @@ function App() {
         )}
         {currentView === 'game' && selectedGame === 'talkdeck' && (
           <TalkDeck onBackToHome={handleBackToHome} />
+        )}
+        {currentView === 'game' && selectedGame === 'truthordare' && (
+          <TruthOrDare onBackToHome={handleBackToHome} />
         )}
       </div>
     </LanguageProvider>

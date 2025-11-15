@@ -19,6 +19,12 @@ function Homepage({ onSelectGame }) {
       name: t.homepage.talkDeck.name,
       description: t.homepage.talkDeck.description,
       emoji: '💬'
+    },
+    {
+      id: 'truthordare',
+      name: t.homepage.truthOrDare.name,
+      description: t.homepage.truthOrDare.description,
+      emoji: '🎲'
     }
   ];
 
