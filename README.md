@@ -192,7 +192,7 @@ The platform includes comprehensive SEO optimization for better search engine di
 
 ### For Deployment:
 When deploying to production, remember to:
-1. Update the domain name in `public/sitemap.xml` (replace `https://couplefungames.com/`)
+1. Update the domain name in `public/sitemap.xml` (replace `https://couple-fun-games.web.id/`)
 2. Update the domain name in `public/robots.txt` sitemap reference
 3. Verify all SEO files are accessible after deployment
 
