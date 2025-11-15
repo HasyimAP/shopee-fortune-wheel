@@ -42,6 +42,11 @@ Learn about each game in detail:
   - Curated conversation prompts
   - Multiple categories and topics
   - Multilingual support
+- **🎲 [You & Me: Truth or Dare](games/truth-or-dare.md)** - Interactive Truth or Dare game for couples
+  - 100 truth questions and 100 dare challenges
+  - Smart wheel with probability adjustment
+  - Intelligent caching system
+  - Perfect for date nights and fun moments
 
 ## 🎮 Available Games
 
@@ -49,6 +54,7 @@ Currently, the platform includes:
 
 1. **Shopee Fortune Wheel** - A fun, interactive Wheel of Fortune-inspired game where players spin a wheel, guess letters, and win shopping budgets!
 2. **TalkDeck** - An engaging conversation game designed to spark meaningful discussions between couples with curated prompts and questions.
+3. **You & Me: Truth or Dare** - A playful game where you spin the wheel to get random truth questions or dare challenges, with smart caching to ensure variety and fresh gameplay.
 
 More games coming soon! 🚀
 
@@ -63,6 +69,7 @@ couple-fun-games/
 │   │   ├── Homepage.jsx       # Main menu for game selection
 │   │   ├── ShopeeFortuneWheel.jsx  # Shopee game wrapper
 │   │   ├── TalkDeck.jsx       # TalkDeck conversation game
+│   │   ├── TruthOrDare.jsx    # Truth or Dare game
 │   │   ├── LanguageSwitcher.jsx    # Language toggle component
 │   │   ├── HostSetup.jsx      # Game setup screen
 │   │   ├── GameBoard.jsx      # Main game interface
@@ -90,7 +97,8 @@ couple-fun-games/
 │   ├── DEPLOYMENT-LINUX.md    # Linux deployment guide
 │   ├── UPDATE-DEPLOYMENT.md   # Update deployment guide
 │   └── games/
-│       └── shopee-fortune-wheel.md  # Individual game docs
+│       ├── shopee-fortune-wheel.md  # Shopee game docs
+│       └── truth-or-dare.md         # Truth or Dare game docs
 ├── index.html                 # HTML template with SEO meta tags
 ├── package.json               # Dependencies and scripts
 ├── vite.config.js             # Vite configuration
