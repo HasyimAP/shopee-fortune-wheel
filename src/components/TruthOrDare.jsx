@@ -116,8 +116,11 @@ function TruthOrDare({ onBackToHome }) {
 
     // Calculate rotation (multiple full spins + landing position)
     const fullSpins = 5 + Math.floor(Math.random() * 3); // 5-7 full spins
-    const landingAngle = chosenResult === 'truth' ? 90 : 270; // Truth at top, Dare at bottom
-    const totalRotation = wheelRotation + (fullSpins * 360) + landingAngle;
+    const targetAngle = chosenResult === 'truth' ? 0 : 180; // Truth at top (0°), Dare at bottom (180°)
+    // Calculate the angle needed to reach target from current position
+    const currentAngle = wheelRotation % 360;
+    const angleToTarget = (targetAngle - currentAngle + 360) % 360;
+    const totalRotation = wheelRotation + (fullSpins * 360) + angleToTarget;
 
     setWheelRotation(totalRotation);
 
