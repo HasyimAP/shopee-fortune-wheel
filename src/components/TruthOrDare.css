@@ -58,37 +58,7 @@
 }
 
 /* Probability Display */
-.probability-display {
-  margin: 1.5rem 0;
-  padding: 0 1rem;
-}
-
-.prob-bar {
-  display: flex;
-  height: 40px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-weight: bold;
-}
-
-.prob-truth {
-  background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  transition: width 0.5s ease;
-}
-
-.prob-dare {
-  background: linear-gradient(135deg, #F093FB 0%, #F5576C 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  transition: width 0.5s ease;
-}
+/* Removed - no longer needed */
 
 /* Wheel Container */
 .wheel-container {
@@ -118,29 +88,38 @@
 }
 
 .wheel.spinning {
-  transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+  transition: transform var(--spin-duration, 3s) cubic-bezier(0.17, 0.67, 0.12, 0.99);
 }
 
-.wheel-half {
+.wheel-quarter {
   position: absolute;
   width: 100%;
-  height: 50%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
 }
 
-.truth-half {
-  top: 0;
-  background: linear-gradient(180deg, #56CCF2 0%, #2F80ED 100%);
-  border-radius: 300px 300px 0 0;
+.truth-quarter-1 {
+  background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+  transform: rotate(0deg);
 }
 
-.dare-half {
-  bottom: 0;
-  background: linear-gradient(180deg, #F5576C 0%, #F093FB 100%);
-  border-radius: 0 0 300px 300px;
+.dare-quarter-1 {
+  background: linear-gradient(135deg, #F093FB 0%, #F5576C 100%);
+  transform: rotate(90deg);
+}
+
+.truth-quarter-2 {
+  background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+  transform: rotate(180deg);
+}
+
+.dare-quarter-2 {
+  background: linear-gradient(135deg, #F093FB 0%, #F5576C 100%);
+  transform: rotate(270deg);
 }
 
 .wheel-text {
@@ -149,11 +128,21 @@
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   padding: 1rem;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
 }
 
-.dare-half .wheel-text {
-  transform: rotate(180deg);
-  margin-top: -20px;
+.dare-quarter-1 .wheel-text,
+.dare-quarter-2 .wheel-text {
+  transform: translateX(-50%) rotate(-90deg);
+}
+
+.truth-quarter-2 .wheel-text {
+  transform: translateX(-50%) rotate(-180deg);
 }
 
 /* Spin Button */
@@ -289,24 +278,7 @@
 }
 
 /* Reset Cache Button */
-.reset-cache-button {
-  display: block;
-  margin: 1rem auto;
-  padding: 0.6rem 1.5rem;
-  font-size: 0.9rem;
-  color: #999;
-  background: transparent;
-  border: 2px solid #ddd;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.reset-cache-button:hover {
-  color: #667eea;
-  border-color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
-}
+/* Removed - no longer needed */
 
 /* Responsive Design */
 @media (max-width: 768px) {

@@ -10,31 +10,21 @@ function TruthOrDare({ onBackToHome }) {
   const [result, setResult] = useState(null); // 'truth' or 'dare'
   const [currentChallenge, setCurrentChallenge] = useState(null);
   const [wheelRotation, setWheelRotation] = useState(0);
-  const [truthProbability, setTruthProbability] = useState(50); // Start at 50-50
 
-  // Cache keys
-  const TRUTH_PROBABILITY_KEY = 'truthordare_truth_probability';
+  // Cache keys for asked questions only
   const TRUTH_CACHE_KEY = 'truthordare_asked_truth';
   const DARE_CACHE_KEY = 'truthordare_asked_dare';
   const CACHE_TIMESTAMP_KEY = 'truthordare_cache_timestamp';
 
-  // Initialize probabilities and cache on mount
+  // Initialize cache timestamp on mount
   useEffect(() => {
-    loadCachedProbability();
-  }, []);
-
-  const loadCachedProbability = () => {
-    const cachedProb = localStorage.getItem(TRUTH_PROBABILITY_KEY);
     const cacheTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
     const oneWeekInMs = 7 * 24 * 60 * 60 * 1000;
     const now = Date.now();
 
-    if (cachedProb && cacheTimestamp) {
+    if (cacheTimestamp) {
       const timestamp = parseInt(cacheTimestamp, 10);
-      if (now - timestamp < oneWeekInMs) {
-        // Cache is valid
-        setTruthProbability(parseInt(cachedProb, 10));
-      } else {
+      if (now - timestamp >= oneWeekInMs) {
         // Cache expired, reset
         resetCache();
       }
@@ -42,14 +32,11 @@ function TruthOrDare({ onBackToHome }) {
       // Initialize timestamp if not exists
       localStorage.setItem(CACHE_TIMESTAMP_KEY, now.toString());
     }
-  };
+  }, []);
 
   const resetCache = () => {
-    localStorage.removeItem(TRUTH_PROBABILITY_KEY);
     localStorage.removeItem(TRUTH_CACHE_KEY);
     localStorage.removeItem(DARE_CACHE_KEY);
-    localStorage.removeItem(CACHE_TIMESTAMP_KEY);
-    setTruthProbability(50);
     localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
   };
 
@@ -88,21 +75,6 @@ function TruthOrDare({ onBackToHome }) {
     }
   };
 
-  const updateProbability = (resultType) => {
-    let newProb = truthProbability;
-    
-    if (resultType === 'truth') {
-      // Truth showed up, decrease its probability
-      newProb = Math.max(25, truthProbability - 5); // Minimum 25%
-    } else {
-      // Dare showed up, increase truth probability
-      newProb = Math.min(75, truthProbability + 5); // Maximum 75%
-    }
-
-    setTruthProbability(newProb);
-    localStorage.setItem(TRUTH_PROBABILITY_KEY, newProb.toString());
-  };
-
   const spinWheel = () => {
     if (isSpinning) return;
 
@@ -110,24 +82,32 @@ function TruthOrDare({ onBackToHome }) {
     setResult(null);
     setCurrentChallenge(null);
 
-    // Determine result based on probability
-    const random = Math.random() * 100;
-    const chosenResult = random < truthProbability ? 'truth' : 'dare';
-
-    // Calculate rotation (multiple full spins + landing position)
+    // Randomize spin duration between 3-5 seconds
+    const spinDuration = 3000 + Math.random() * 2000; // 3000-5000ms
+    
+    // Calculate rotation (multiple full spins + random landing position)
     const fullSpins = 5 + Math.floor(Math.random() * 3); // 5-7 full spins
-    const targetAngle = chosenResult === 'truth' ? 0 : 180; // Truth at top (0°), Dare at bottom (180°)
-    // Calculate the angle needed to reach target from current position
-    const currentAngle = wheelRotation % 360;
-    const angleToTarget = (targetAngle - currentAngle + 360) % 360;
-    const totalRotation = wheelRotation + (fullSpins * 360) + angleToTarget;
+    const randomAngle = Math.random() * 360; // Random angle between 0-360
+    const totalRotation = wheelRotation + (fullSpins * 360) + randomAngle;
+
+    // Store spin duration for CSS transition
+    const wheelElement = document.querySelector('.wheel');
+    if (wheelElement) {
+      wheelElement.style.setProperty('--spin-duration', `${spinDuration / 1000}s`);
+    }
 
     setWheelRotation(totalRotation);
 
     // After spinning animation completes
     setTimeout(() => {
+      // Determine result based on where wheel landed
+      // Wheel has 4 sections: Truth (0-90°), Dare (90-180°), Truth (180-270°), Dare (270-360°)
+      const finalAngle = totalRotation % 360;
+      const chosenResult = (finalAngle >= 0 && finalAngle < 90) || (finalAngle >= 180 && finalAngle < 270) 
+        ? 'truth' 
+        : 'dare';
+      
       setResult(chosenResult);
-      updateProbability(chosenResult);
       
       // Select a random challenge
       const available = getAvailableChallenges(chosenResult);
@@ -139,7 +119,7 @@ function TruthOrDare({ onBackToHome }) {
       }
 
       setIsSpinning(false);
-    }, 3000); // Match CSS animation duration
+    }, spinDuration);
   };
 
   const resetGame = () => {
@@ -157,24 +137,6 @@ function TruthOrDare({ onBackToHome }) {
         <h1 className="truthordare-title">{t.truthOrDare.title}</h1>
         <p className="truthordare-subtitle">{t.truthOrDare.subtitle}</p>
 
-        {/* Probability Display */}
-        <div className="probability-display">
-          <div className="prob-bar">
-            <div 
-              className="prob-truth" 
-              style={{ width: `${truthProbability}%` }}
-            >
-              Truth {truthProbability}%
-            </div>
-            <div 
-              className="prob-dare" 
-              style={{ width: `${100 - truthProbability}%` }}
-            >
-              Dare {100 - truthProbability}%
-            </div>
-          </div>
-        </div>
-
         {/* Spinning Wheel */}
         <div className="wheel-container">
           <div className="wheel-pointer">▼</div>
@@ -182,10 +144,16 @@ function TruthOrDare({ onBackToHome }) {
             className={`wheel ${isSpinning ? 'spinning' : ''}`}
             style={{ transform: `rotate(${wheelRotation}deg)` }}
           >
-            <div className="wheel-half truth-half">
+            <div className="wheel-quarter truth-quarter-1">
               <span className="wheel-text">Truth</span>
             </div>
-            <div className="wheel-half dare-half">
+            <div className="wheel-quarter dare-quarter-1">
+              <span className="wheel-text">Dare</span>
+            </div>
+            <div className="wheel-quarter truth-quarter-2">
+              <span className="wheel-text">Truth</span>
+            </div>
+            <div className="wheel-quarter dare-quarter-2">
               <span className="wheel-text">Dare</span>
             </div>
           </div>
@@ -225,11 +193,6 @@ function TruthOrDare({ onBackToHome }) {
             <li>{t.truthOrDare.instruction4}</li>
           </ul>
         </div>
-
-        {/* Reset Cache Button */}
-        <button className="reset-cache-button" onClick={resetCache}>
-          {t.truthOrDare.resetCache}
-        </button>
       </div>
     </div>
   );
